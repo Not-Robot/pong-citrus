@@ -33,10 +33,10 @@ package
 			_quitButton.y = _quitButton.height;
 			addChild(_quitButton);
 			
-			_quitButton.addEventListener(Event.TRIGGERED, quit_game);
+			_quitButton.addEventListener(Event.TRIGGERED, quitGame);
 		}
 		
-		private function quit_game(e:Event):void {
+		private function quitGame(e:Event):void {
 			trace("Quit game");
 			CitrusEngine.getInstance().state = new WelcomeState();
 		}

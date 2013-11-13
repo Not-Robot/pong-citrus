@@ -47,16 +47,16 @@ package
 			_multiButton.y = 400;
 			addChild(_multiButton);
 			
-			_soloButton.addEventListener(Event.TRIGGERED, solo_start);
-			_multiButton.addEventListener(Event.TRIGGERED, multi_start);
+			_soloButton.addEventListener(Event.TRIGGERED, soloStart);
+			_multiButton.addEventListener(Event.TRIGGERED, multiStart);
 		}
 		
-		protected function solo_start(e:Event):void {
+		protected function soloStart(e:Event):void {
 			trace("Start a solo game");
 			CitrusEngine.getInstance().state = new PongGameState();
 		}
 		
-		protected function multi_start(e:Event):void {
+		protected function multiStart(e:Event):void {
 			trace("Start a multi-player game");
 			CitrusEngine.getInstance().state = new PongGameState();
 		}
