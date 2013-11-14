@@ -2,7 +2,14 @@ package
 {
 	import citrus.core.CitrusEngine;
 	import citrus.core.starling.StarlingState;
-	import citrus.physics.box2d.Box2D;
+	import citrus.objects.NapePhysicsObject;
+	import citrus.objects.platformer.nape.Sensor;
+	import citrus.physics.nape.Nape;
+	import flash.display.Stage;
+	import nape.geom.Vec2;
+	import nape.phys.Body;
+	import nape.phys.BodyType;
+	import nape.shape.Shape;
 	import starling.events.Event;
 	import starling.display.Button;
 	import starling.textures.Texture;
@@ -14,6 +21,7 @@ package
 	public class PongGameState extends StarlingState 
 	{
 		private var _quitButton:Button;
+		private var _nape:Nape;
 		
 		public function PongGameState() {
 			super();
@@ -22,9 +30,11 @@ package
 		override public function initialize():void {
 			super.initialize();
 			
-			var box2D:Box2D = new Box2D("box2D");
-			box2D.visible = true;
-			add(box2D);
+			_nape = new Nape("nape", { gravity:new Vec2(0, 0) } );
+			_nape.visible = true;
+			_nape.space.worldLinearDrag = 0;
+			_nape.space.worldAngularDrag = 0;
+			add(_nape);
 			
 			_quitButton = new Button(Texture.fromColor(100, 40, 0xFFFFFFFF), "Quit");
 			_quitButton.pivotX = _quitButton.width / 2;
@@ -34,6 +44,16 @@ package
 			addChild(_quitButton);
 			
 			_quitButton.addEventListener(Event.TRIGGERED, quitGame);
+			
+			add(new Ball("ball"));
+			
+			add(new Wall("wall0", { x:_ce.stage.stageWidth / 2, y:2, width:_ce.stage.stageWidth, height:4 } ));
+			add(new Wall("wall1", { x:_ce.stage.stageWidth - 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			add(new Wall("wall2", { x:_ce.stage.stageWidth / 2, y:_ce.stage.stageHeight - 2, width: _ce.stage.stageWidth, height:4 } ));
+			add(new Wall("wall3", { x: 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			
+			add(new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
+			add(new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
 		}
 		
 		private function quitGame(e:Event):void {
