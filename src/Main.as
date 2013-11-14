@@ -4,7 +4,7 @@ package
 	import flash.events.Event;
 
 	
-	[SWF(framerate="60")]
+	[SWF(framerate="60", backgroundColor="0x000000")]
 	/**
 	 * ...
 	 * @author Derek Carson
@@ -13,12 +13,13 @@ package
 	{
 		
 		public function Main():void {
+			super();
 		}
 		
 		override protected function handleAddedToStage(e:Event):void {
 			super.handleAddedToStage(e);
 			setUpStarling(true);
-			state = new PongGameState();
+			state = new WelcomeState();
 		}
 
 // BOZO: want this in citrus 3.1.8, specifically for mobile
