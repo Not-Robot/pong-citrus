@@ -31,7 +31,7 @@ package
 			super.initialize();
 			
 			_nape = new Nape("nape", { gravity:new Vec2(0, 0) } );
-			_nape.visible = true;
+			//_nape.visible = true;
 			_nape.space.worldLinearDrag = 0;
 			_nape.space.worldAngularDrag = 0;
 			add(_nape);
@@ -45,12 +45,12 @@ package
 			
 			_quitButton.addEventListener(Event.TRIGGERED, quitGame);
 			
-			add(new Ball("ball"));
+			add(new Ball("ball", {radius: 10}));
 			
-			add(new Wall("wall0", { x:_ce.stage.stageWidth / 2, y:2, width:_ce.stage.stageWidth, height:4 } ));
-			add(new Wall("wall1", { x:_ce.stage.stageWidth - 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
-			add(new Wall("wall2", { x:_ce.stage.stageWidth / 2, y:_ce.stage.stageHeight - 2, width: _ce.stage.stageWidth, height:4 } ));
-			add(new Wall("wall3", { x: 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			add(new Wall("Top", { x:_ce.stage.stageWidth / 2, y:-2, width:_ce.stage.stageWidth, height:4 } ));
+			add(new Wall("Right", { x:_ce.stage.stageWidth + 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			add(new Wall("Bottom", { x:_ce.stage.stageWidth / 2, y:_ce.stage.stageHeight + 2, width: _ce.stage.stageWidth, height:4 } ));
+			add(new Wall("Left", { x:-2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
 			
 			add(new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
 			add(new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
