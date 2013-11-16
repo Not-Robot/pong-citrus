@@ -53,12 +53,12 @@ package
 		
 		protected function soloStart(e:Event):void {
 			trace("Start a solo game");
-			CitrusEngine.getInstance().state = new PongGameState();
+			_ce.state = new PongGameState();
 		}
 		
 		protected function multiStart(e:Event):void {
 			trace("Start a multi-player game");
-			CitrusEngine.getInstance().state = new PongGameState();
+			_ce.state = new PongGameState();
 		}
 		
 	}

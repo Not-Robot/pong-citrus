@@ -1,17 +1,12 @@
 package  
 {
-	import citrus.core.CitrusEngine;
 	import citrus.core.starling.StarlingState;
-	import citrus.objects.NapePhysicsObject;
 	import citrus.objects.platformer.nape.Sensor;
 	import citrus.physics.nape.Nape;
-	import flash.display.Stage;
+	import nape.callbacks.InteractionCallback;
 	import nape.geom.Vec2;
-	import nape.phys.Body;
-	import nape.phys.BodyType;
-	import nape.shape.Shape;
-	import starling.events.Event;
 	import starling.display.Button;
+	import starling.events.Event;
 	import starling.textures.Texture;
 	
 	/**
@@ -22,6 +17,10 @@ package
 	{
 		private var _quitButton:Button;
 		private var _nape:Nape;
+		private var _scoreBoard:Scoreboard;
+		private var _ball:Ball;
+		private var _leftScore:uint;
+		private var _rightScore:uint;
 		
 		public function PongGameState() {
 			super();
@@ -45,20 +44,66 @@ package
 			
 			_quitButton.addEventListener(Event.TRIGGERED, quitGame);
 			
-			add(new Ball("ball", {radius: 10}));
+			_ball = new Ball("ball", {radius: 10})
+			add(_ball);
 			
-			add(new Wall("Top", { x:_ce.stage.stageWidth / 2, y:-2, width:_ce.stage.stageWidth, height:4 } ));
-			add(new Wall("Right", { x:_ce.stage.stageWidth + 2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			add(new Wall("Top", { x:_ce.stage.stageWidth / 2, y: -2, width:_ce.stage.stageWidth, height:4 } ));
 			add(new Wall("Bottom", { x:_ce.stage.stageWidth / 2, y:_ce.stage.stageHeight + 2, width: _ce.stage.stageWidth, height:4 } ));
-			add(new Wall("Left", { x:-2, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } ));
+			
+			var rightWall:Sensor = new Sensor("Right", { x:_ce.stage.stageWidth + 4, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } );
+			add(rightWall);
+			rightWall.onBeginContact.add(onRightLoss);
+			var leftWall:Sensor = new Sensor("Left", { x: -4, y:_ce.stage.stageHeight / 2, width: 4, height:_ce.stage.stageHeight } );
+			add(leftWall);
+			leftWall.onBeginContact.add(onLeftLoss);
 			
 			add(new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
 			add(new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
+			
+			_scoreBoard = new Scoreboard();
+			_scoreBoard.x = _ce.stage.stageWidth / 2;
+			_scoreBoard.y = 20;
+			addChild(_scoreBoard);
+			_leftScore = 0;
+			_rightScore = 0;
+			updateScore();
+			
+		}
+		
+		private function startPoint():void {
+			_ball.x = _ce.stage.stageWidth / 2;
+			_ball.y = _ce.stage.stageHeight / 2;
+		}
+		
+		private function onRightLoss(cEvt:InteractionCallback):void {
+			trace("Right lost point.");
+			_rightScore += 1;
+			updateScore();
+			checkWin();
+			startPoint();
+		}
+		
+		private function onLeftLoss(cEvt:InteractionCallback):void {
+			trace("Left lost point.");
+			_leftScore += 1;
+			updateScore();
+			checkWin();
+			startPoint();
+		}
+				
+		private function checkWin():void {
+			if (_leftScore > 4 || _rightScore > 4) {
+				_ce.state = new WelcomeState();
+			}
 		}
 		
 		private function quitGame(e:Event):void {
 			trace("Quit game");
-			CitrusEngine.getInstance().state = new WelcomeState();
+			_ce.state = new WelcomeState();
+		}
+		
+		private function updateScore():void {
+			_scoreBoard.text = _leftScore + " | " + _rightScore;
 		}
 		
 	}
