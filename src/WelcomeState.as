@@ -14,14 +14,12 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class WelcomeState extends StarlingState
-	{
+	public class WelcomeState extends StarlingState {
 		private var _welcomeMess:TextField;
 		private var _soloButton:Button;
 		private var _multiButton:Button;
 		
-		public function WelcomeState() 
-		{
+		public function WelcomeState() {
 			super();
 		}
 		
@@ -53,12 +51,12 @@ package
 		
 		protected function soloStart(e:Event):void {
 			trace("Start a solo game");
-			CitrusEngine.getInstance().state = new PongGameState();
+			_ce.state = new PongGameState();
 		}
 		
 		protected function multiStart(e:Event):void {
 			trace("Start a multi-player game");
-			CitrusEngine.getInstance().state = new PongGameState();
+			_ce.state = new PongGameState();
 		}
 		
 	}
