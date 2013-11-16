@@ -9,8 +9,7 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class PaddleController extends Sprite 
-	{
+	public class PaddleController extends Sprite {
 		private var _paddle:Paddle;
 		
 		public function PaddleController(paddle:Paddle) {
@@ -27,8 +26,6 @@ package
 			} else if (t && t.phase == TouchPhase.ENDED) {
 				_paddle.move(_paddle.y);
 			}
-		}
-		
+		}	
 	}
-
 }
