@@ -66,9 +66,9 @@ package
 			add(leftWall);
 			leftWall.onBeginContact.add(onLeftLoss);
 			
-			_rightPaddle = new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } )
+			_rightPaddle = new Paddle("rightPaddle", { x:_ce.stage.stageWidth -25, y:_ce.stage.stageHeight / 2, width: 50, height: 200 } )
 			add(_rightPaddle);
-			_leftPaddle = new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } );
+			_leftPaddle = new Paddle("leftPaddle", { x:25, y:_ce.stage.stageHeight / 2, width: 50, height: 200 } );
 			add(_leftPaddle);
 			
 			_scoreBoard = new Scoreboard();
