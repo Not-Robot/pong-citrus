@@ -1,13 +1,19 @@
 package  
 {
 	import citrus.core.starling.StarlingState;
+	import citrus.objects.APhysicsObject;
 	import citrus.objects.platformer.nape.Sensor;
 	import citrus.physics.nape.Nape;
 	import nape.callbacks.InteractionCallback;
 	import nape.geom.Vec2;
 	import starling.display.Button;
+	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.Texture;
+	import starling.utils.getNextPowerOfTwo;
 	
 	/**
 	 * ...
@@ -20,9 +26,13 @@ package
 		private var _ball:Ball;
 		private var _leftScore:uint;
 		private var _rightScore:uint;
+		private var _rightPaddle:Paddle;
+		private var _leftPaddle:Paddle;
+		private var _hasAI:Boolean;
 		
-		public function PongGameState() {
+		public function PongGameState(hasAI:Boolean=false) {
 			super();
+			_hasAI = hasAI;
 		}
 		
 		override public function initialize():void {
@@ -56,8 +66,10 @@ package
 			add(leftWall);
 			leftWall.onBeginContact.add(onLeftLoss);
 			
-			add(new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
-			add(new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } ));
+			_rightPaddle = new Paddle("rightPaddle", { x:_ce.stage.stageWidth -10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } )
+			add(_rightPaddle);
+			_leftPaddle = new Paddle("leftPaddle", { x:10, y:_ce.stage.stageHeight / 2, width: 20, height: 100 } );
+			add(_leftPaddle);
 			
 			_scoreBoard = new Scoreboard();
 			_scoreBoard.x = _ce.stage.stageWidth / 2;
@@ -66,6 +78,17 @@ package
 			_leftScore = 0;
 			_rightScore = 0;
 			updateScore();
+			
+			var lPCtl:PaddleController = new PaddleController(_leftPaddle);
+			addChild(lPCtl);
+			
+			if (_hasAI) {
+				var rAICtl:AIController = new AIController(_rightPaddle, _ball);
+				add(rAICtl);
+			} else {
+				var rPCtl:PaddleController = new PaddleController(_rightPaddle);
+				addChild(rPCtl);
+			}
 			
 		}
 		
