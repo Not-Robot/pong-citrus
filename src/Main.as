@@ -18,6 +18,7 @@ package
 		override protected function handleAddedToStage(e:Event):void {
 			super.handleAddedToStage(e);
 			setUpStarling(true);
+			this._starling.simulateMultitouch = true;
 			state = new WelcomeState();
 		}
 

@@ -51,7 +51,7 @@ package
 		
 		protected function soloStart(e:Event):void {
 			trace("Start a solo game");
-			_ce.state = new PongGameState();
+			_ce.state = new PongGameState(true);
 		}
 		
 		protected function multiStart(e:Event):void {
