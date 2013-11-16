@@ -14,14 +14,12 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class WelcomeState extends StarlingState
-	{
+	public class WelcomeState extends StarlingState {
 		private var _welcomeMess:TextField;
 		private var _soloButton:Button;
 		private var _multiButton:Button;
 		
-		public function WelcomeState() 
-		{
+		public function WelcomeState() {
 			super();
 		}
 		

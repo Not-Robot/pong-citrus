@@ -13,8 +13,7 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class PongGameState extends StarlingState 
-	{
+	public class PongGameState extends StarlingState {
 		private var _quitButton:Button;
 		private var _nape:Nape;
 		private var _scoreBoard:Scoreboard;
@@ -105,7 +104,5 @@ package
 		private function updateScore():void {
 			_scoreBoard.text = _leftScore + " | " + _rightScore;
 		}
-		
 	}
-
 }

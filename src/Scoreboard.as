@@ -9,11 +9,9 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class Scoreboard extends TextField 
-	{
+	public class Scoreboard extends TextField {
 		
-		public function Scoreboard() 
-		{
+		public function Scoreboard() {
 			super(100, 40, "0 | 0", "Verdana", 22, 0xFFFFFF, false);
 			this.pivotX = this.width / 2;
 			this.pivotY = this.height / 2;

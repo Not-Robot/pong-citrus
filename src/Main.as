@@ -9,8 +9,7 @@ package
 	 * ...
 	 * @author Derek Carson
 	 */
-	public class Main extends StarlingCitrusEngine 
-	{
+	public class Main extends StarlingCitrusEngine {
 		
 		public function Main():void {
 			super();
